@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black System | Underworld Network</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Creepster&family=Quantico&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Quantico', sans-serif;
+            background: #0a0a0a;
+            color: #b30000;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(139, 0, 0, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(139, 0, 0, 0.1) 0%, transparent 20%);
+            min-height: 100vh;
+            position: relative;
+            background-attachment: fixed;
+        }
+        
+        .network-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -2;
+        }
+        
+        .glowing-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(139, 0, 0, 0.7);
+            box-shadow: 0 0 10px 2px rgba(255, 0, 0, 0.7);
+            animation: floatParticle linear infinite;
+        }
+        
+        @keyframes floatParticle {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(20px); opacity: 0; }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 1px solid #8b0000;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        h1 {
+            font-family: 'Creepster', cursive;
+            font-size: 4.5rem;
+            color: #8b0000;
+            text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
+            letter-spacing: 5px;
+            margin-bottom: 20px;
+            animation: flicker 3s infinite alternate;
+        }
+        
+        .tagline {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            color: #8b0000;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        
+        .animated-girl {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 120px;
+            height: 180px;
+            z-index: 10;
+            filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.7));
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .code-section {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #8b0000;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(139, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .code-section h2 {
+            font-family: 'Orbitron', sans-serif;
+            text-align: center;
+            margin-bottom: 15px;
+            color: #ff4500;
+            text-shadow: 0 0 5px #ff0000;
+        }
+        
+        .code-container {
+            background: #0a0a0a;
+            border: 1px solid #8b0000;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #00ff00;
+            height: 300px;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .code-line {
+            margin-bottom: 5px;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .code-line:before {
+            content: '>';
+            position: absolute;
+            left: 5px;
+            color: #ff0000;
+        }
+        
+        .glow {
+            animation: glow 2s infinite alternate;
+        }
+        
+        .team-section {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #8b0000;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(139, 0, 0, 0.5);
+        }
+        
+        .team-section h2 {
+            font-family: 'Orbitron', sans-serif;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ff4500;
+            text-shadow: 0 0 5px #ff0000;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .team-member {
+            background: rgba(20, 0, 0, 0.8);
+            border: 1px solid #8b0000;
+            border-radius: 5px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
+            background: rgba(40, 0, 0, 0.9);
+            z-index: 5;
+        }
+        
+        .team-member h3 {
+            color: #ff6347;
+            margin-bottom: 5px;
+            font-size: 1.2rem;
+        }
+        
+        .team-member p {
+            color: #ff0000;
+            font-size: 0.9rem;
+        }
+        
+        .member-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #8b0000;
+        }
+        
+        .social-section {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #8b0000;
+            border-radius: 5px;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(139, 0, 0, 0.7);
+            margin: 40px 0;
+            text-align: center;
+        }
+        
+        .social-section h2 {
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 30px;
+            color: #ff4500;
+            text-shadow: 0 0 5px #ff0000;
+            font-size: 2rem;
+            letter-spacing: 2px;
+        }
+        
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .social-btn {
+            background: linear-gradient(45deg, #2b0000, #8b0000);
+            border: 2px solid #ff0000;
+            border-radius: 10px;
+            padding: 20px 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+        
+        .social-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.8);
+            background: linear-gradient(45deg, #8b0000, #2b0000);
+        }
+        
+        .social-btn:active {
+            transform: translateY(0);
+        }
+        
+        .social-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #ff0000;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+        }
+        
+        .social-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            color: #ff4500;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .social-handle {
+            font-family: monospace;
+            font-size: 1rem;
+            color: #00ff00;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 5px;
+            border-radius: 3px;
+            margin-top: 5px;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        
+        .social-btn:hover .social-handle {
+            color: #ffff00;
+            text-shadow: 0 0 5px #ffff00;
+        }
+        
+        .dark-web .social-handle {
+            color: #ff00ff;
+            font-size: 0.9rem;
+        }
+        
+        .social-btn::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff0000, #8b0000, #ff0000, #8b0000);
+            background-size: 400%;
+            z-index: -1;
+            border-radius: 10px;
+            animation: glowing-border 3s linear infinite;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid #8b0000;
+            font-family: 'Orbitron', sans-serif;
+            color: #8b0000;
+            letter-spacing: 2px;
+            margin-top: 20px;
+            position: relative;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
+            }
+            20%, 24%, 55% {
+                text-shadow: none;
+            }
+        }
+        
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00;
+            }
+            to {
+                text-shadow: 0 0 15px #00ff00, 0 0 30px #00ff00;
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.6;
+            }
+        }
+        
+        @keyframes glowing-border {
+            0% {
+                background-position: 0 0;
+            }
+            50% {
+                background-position: 400% 0;
+            }
+            100% {
+                background-position: 0 0;
+            }
+        }
+        
+        .terminal-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 15px;
+            background: #00ff00;
+            vertical-align: middle;
+            margin-left: 5px;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        .blood-drip {
+            position: absolute;
+            top: -20px;
+            width: 2px;
+            height: 20px;
+            background: linear-gradient(to bottom, transparent, #8b0000);
+            animation: drip 4s infinite;
+        }
+        
+        @keyframes drip {
+            0% { height: 0; opacity: 0; }
+            10% { opacity: 1; }
+            90% { height: 100px; opacity: 1; }
+            100% { height: 100px; opacity: 0; }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 40, 0, 0.9);
+            color: #00ff00;
+            padding: 15px 25px;
+            border-radius: 5px;
+            border: 1px solid #00ff00;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+            font-family: monospace;
+            z-index: 1000;
+            transform: translateX(150%);
+            transition: transform 0.5s ease;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .access-portal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 400px;
+            background: rgba(10, 0, 0, 0.95);
+            border: 3px solid #8b0000;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
+            z-index: 2000;
+            transition: transform 0.5s ease;
+        }
+        
+        .access-portal.open {
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .portal-header {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ff4500;
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: 0 0 5px #ff0000;
+        }
+        
+        .portal-content {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #8b0000;
+            border-radius: 5px;
+            padding: 20px;
+            font-family: monospace;
+            color: #00ff00;
+            margin-bottom: 20px;
+            height: 150px;
+            overflow-y: auto;
+        }
+        
+        .portal-action {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .portal-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background: linear-gradient(45deg, #8b0000, #2b0000);
+            color: #ff6347;
+            font-family: 'Orbitron', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid #ff0000;
+        }
+        
+        .portal-btn:hover {
+            background: linear-gradient(45deg, #ff0000, #8b0000);
+            color: #fff;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1500;
+            display: none;
+        }
+        
+        .overlay.active {
+            display: block;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 3rem;
+            }
+            
+            .social-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .animated-girl {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin: 0 auto 20px;
+                width: 100px;
+                height: 150px;
+            }
+            
+            .access-portal {
+                width: 90%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .social-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="network-bg"></div>
+    <div class="glowing-particles" id="particles"></div>
+    
+    <div class="container">
+        <header>
+            <h1>BLACK SYSTEM</h1>
+            <div class="tagline">ACCESSING THE UNDERWORLD NETWORK...</div>
+        </header>
+        
+        <div class="animated-girl floating">
+            <svg viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="dress-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#8b0000" />
+                        <stop offset="100%" stop-color="#000" />
+                    </linearGradient>
+                    <filter id="glow">
+                        <feGaussianBlur stdDeviation="3.5" result="blur" />
+                        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                </defs>
+                
+                <!-- Body -->
+                <circle cx="100" cy="80" r="20" fill="#333" />
+                
+                <!-- Dress -->
+                <path d="M70,100 L130,100 L120,220 L80,220 Z" fill="url(#dress-grad)" />
+                
+                <!-- Hair -->
+                <path d="M80,60 C60,40 60,80 70,100 C50,90 40,70 60,50 Z" fill="#222" />
+                <path d="M120,60 C140,40 140,80 130,100 C150,90 160,70 140,50 Z" fill="#222" />
+                
+                <!-- Eyes -->
+                <circle cx="90" cy="75" r="5" fill="#0f0" filter="url(#glow)" />
+                <circle cx="110" cy="75" r="5" fill="#0f0" filter="url(#glow)" />
+                
+                <!-- Floating effect -->
+                <animateTransform 
+                    attributeName="transform"
+                    type="translate"
+                    values="0,0; 0,-5; 0,0"
+                    dur="3s"
+                    repeatCount="indefinite"
+                />
+            </svg>
+        </div>
+        
+        <div class="main-content">
+            <div class="code-section">
+                <h2>SYSTEM TERMINAL</h2>
+                <div class="code-container" id="code-display">
+                    <!-- Code lines will be inserted here by JS -->
+                </div>
+            </div>
+            
+            <div class="team-section">
+                <h2>BLACK SYSTEM OPERATIVES</h2>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="member-icon"><i class="fas fa-terminal"></i></div>
+                        <h3>Milano</h3>
+                        <p>Assistant Commander - Software Engineer</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-icon"><i class="fas fa-terminal"></i></div>
+                        <h3>Tom</h3>
+                        <p>Assistant Commander - Software Engineer</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-icon"><i class="fas fa-shield-alt"></i></div>
+                        <h3>Nairoz</h3>
+                        <p>Cybersecurity Engineer</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-icon"><i class="fas fa-bug"></i></div>
+                        <h3>Istabraq</h3>
+                        <p>Reverse Engineering</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-icon"><i class="fas fa-brain"></i></div>
+                        <h3>Miami</h3>
+                        <p>Social Engineering</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-icon"><i class="fas fa-laptop-code"></i></div>
+                        <h3>Yagamei</h3>
+                        <p>Software Engineer</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-icon"><i class="fas fa-user-secret"></i></div>
+                        <h3>haager</h3>
+                        <p>Cybersecurity Technologies</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Social Accounts Section -->
+        <div class="social-section">
+            <h2>COMMANDER ACCESS POINTS</h2>
+            <div class="social-grid">
+                <div class="social-btn" data-type="telegram">
+                    <div class="social-icon"><i class="fab fa-telegram"></i></div>
+                    <div class="social-name">Telegram</div>
+                    <div class="social-handle">@ioint</div>
+                </div>
+                
+                <div class="social-btn" data-type="instagram">
+                    <div class="social-icon"><i class="fab fa-instagram"></i></div>
+                    <div class="social-name">Instagram</div>
+                    <div class="social-handle">f</div>
+                </div>
+                
+                <div class="social-btn" data-type="tiktok">
+                    <div class="social-icon"><i class="fab fa-tiktok"></i></div>
+                    <div class="social-name">TikTok</div>
+                    <div class="social-handle">f</div>
+                </div>
+                
+                <div class="social-btn" data-type="github">
+                    <div class="social-icon"><i class="fab fa-github"></i></div>
+                    <div class="social-name">GitHub</div>
+                    <div class="social-handle">ru266</div>
+                </div>
+                
+                <div class="social-btn dark-web" data-type="darkweb">
+                    <div class="social-icon"><i class="fas fa-skull"></i></div>
+                    <div class="social-name">Dark Web</div>
+                    <div class="social-handle">Sir.Mahdi.onion</div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p class="pulse">WARNING: UNAUTHORIZED ACCESS WILL BE PUNISHED</p>
+            <p>SYSTEM STATUS: <span class="glow">ACTIVE</span></p>
+        </footer>
+    </div>
+    
+    <!-- Notification Element -->
+    <div class="notification" id="notification">Access portal initialized</div>
+    
+    <!-- Access Portal -->
+    <div class="overlay" id="overlay"></div>
+    <div class="access-portal" id="access-portal">
+        <div class="portal-header">
+            <h2>UNDERWORLD ACCESS PORTAL</h2>
+        </div>
+        <div class="portal-content" id="portal-content">
+            > Initializing secure connection...<br>
+            > Establishing encrypted tunnel...<br>
+            > Verifying security credentials...<br>
+            > Connection to <span id="portal-handle"></span> established<br>
+            > Select an action below
+        </div>
+        <div class="portal-action">
+            <button class="portal-btn" id="portal-copy">Copy Handle</button>
+            <button class="portal-btn" id="portal-visit">Visit Platform</button>
+            <button class="portal-btn" id="portal-close">Close Portal</button>
+        </div>
+    </div>
+    
+    <script>
+        // Create glowing particles background
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random size
+                const size = Math.random() * 10 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random position
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100 + 100}%`;
+                
+                // Random animation
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${delay}s`;
+                
+                container.appendChild(particle);
+            }
+        }
+        
+        // Add blood drips
+        function createBloodDrips() {
+            const header = document.querySelector('header');
+            const footer = document.querySelector('footer');
+            const socialSection = document.querySelector('.social-section');
+            
+            for (let i = 0; i < 5; i++) {
+                const drip = document.createElement('div');
+                drip.classList.add('blood-drip');
+                drip.style.left = `${Math.random() * 100}%`;
+                drip.style.animationDelay = `${Math.random() * 4}s`;
+                header.appendChild(drip);
+                
+                const footerDrip = document.createElement('div');
+                footerDrip.classList.add('blood-drip');
+                footerDrip.style.left = `${Math.random() * 100}%`;
+                footerDrip.style.animationDelay = `${Math.random() * 4}s`;
+                footer.appendChild(footerDrip);
+                
+                const socialDrip = document.createElement('div');
+                socialDrip.classList.add('blood-drip');
+                socialDrip.style.left = `${Math.random() * 100}%`;
+                socialDrip.style.animationDelay = `${Math.random() * 4}s`;
+                socialSection.appendChild(socialDrip);
+            }
+        }
+        
+        // Terminal code display
+        const codeLines = [
+            "> INITIALIZING BLACK SYSTEM NETWORK...",
+            "> CONNECTING TO UNDERWORLD SERVERS...",
+            "> ESTABLISHING SECURE ENCRYPTION...",
+            "> WARNING: SYSTEM ACCESS RESTRICTED",
+            "> AUTHENTICATING USER: **REDACTED**",
+            "> VERIFYING BIOMETRICS... COMPLETE",
+            "> LOADING CORE MODULES...",
+            "> SECURITY PROTOCOLS: ACTIVE",
+            "> NETWORK STATUS: STABLE",
+            "> MONITORING ALL COMMUNICATIONS...",
+            "> DATA ENCRYPTION: AES-256 ACTIVE",
+            "> FIREWALL STATUS: IMPENETRABLE",
+            "> INTRUSION DETECTION: ENABLED",
+            "> COMMANDER ACCOUNTS LOADED...",
+            "> READY FOR COMMANDS..."
+        ];
+        
+        function displayTerminalCode() {
+            const codeDisplay = document.getElementById('code-display');
+            let index = 0;
+            
+            function addLine() {
+                if (index < codeLines.length) {
+                    const line = document.createElement('div');
+                    line.classList.add('code-line');
+                    
+                    // Add glow effect to every 3rd line
+                    if (index % 3 === 0) {
+                        const span = document.createElement('span');
+                        span.textContent = codeLines[index];
+                        span.classList.add('glow');
+                        line.appendChild(span);
+                    } else {
+                        line.textContent = codeLines[index];
+                    }
+                    
+                    codeDisplay.appendChild(line);
+                    codeDisplay.scrollTop = codeDisplay.scrollHeight;
+                    index++;
+                    
+                    // Add cursor to last line
+                    if (index === codeLines.length) {
+                        const cursor = document.createElement('span');
+                        cursor.classList.add('terminal-cursor');
+                        line.appendChild(cursor);
+                    }
+                    
+                    setTimeout(addLine, 500);
+                }
+            }
+            
+            addLine();
+        }
+        
+        // Show notification
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Access portal functionality
+        let currentHandle = '';
+        let currentType = '';
+        
+        function openAccessPortal(type, handle) {
+            currentHandle = handle;
+            currentType = type;
+            
+            // Update portal content
+            document.getElementById('portal-handle').textContent = handle;
+            
+            // Show portal
+            document.getElementById('overlay').classList.add('active');
+            document.getElementById('access-portal').classList.add('open');
+            
+            showNotification(`Accessing ${type} portal...`);
+        }
+        
+        function closeAccessPortal() {
+            document.getElementById('overlay').classList.remove('active');
+            document.getElementById('access-portal').classList.remove('open');
+        }
+        
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showNotification(`Copied to clipboard: ${text}`);
+            });
+        }
+        
+        function visitPlatform() {
+            let url = '';
+            
+            switch(currentType) {
+                case 'telegram':
+                    url = `https://t.me/${currentHandle.replace('@', '')}`;
+                    break;
+                case 'instagram':
+                    url = `https://instagram.com/${currentHandle}`;
+                    break;
+                case 'tiktok':
+                    url = `https://tiktok.com/@${currentHandle}`;
+                    break;
+                case 'github':
+                    url = `https://github.com/${currentHandle}`;
+                    break;
+                case 'darkweb':
+                    showNotification("Dark web access requires Tor browser");
+                    return;
+            }
+            
+            showNotification(`Redirecting to ${currentType}...`);
+            setTimeout(() => {
+                window.open(url, '_blank');
+            }, 1000);
+        }
+        
+        // Initialize everything when page loads
+        window.addEventListener('load', () => {
+            createParticles();
+            createBloodDrips();
+            displayTerminalCode();
+            
+            // Show initial notification
+            setTimeout(() => {
+                showNotification("System initialized. Access points active.");
+            }, 2000);
+            
+            // Add event listeners to social buttons
+            const socialButtons = document.querySelectorAll('.social-btn');
+            socialButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const type = button.getAttribute('data-type');
+                    const handle = button.querySelector('.social-handle').textContent;
+                    openAccessPortal(type, handle);
+                });
+            });
+            
+            // Add event listeners to portal buttons
+            document.getElementById('portal-copy').addEventListener('click', () => {
+                copyToClipboard(currentHandle);
+            });
+            
+            document.getElementById('portal-visit').addEventListener('click', () => {
+                visitPlatform();
+            });
+            
+            document.getElementById('portal-close').addEventListener('click', () => {
+                closeAccessPortal();
+            });
+            
+            document.getElementById('overlay').addEventListener('click', () => {
+                closeAccessPortal();
+            });
+        });
+    </script>
+</body>
+</html>
